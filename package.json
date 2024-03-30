@@ -83,6 +83,6 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "ffi-napi": "^4.0.3"
+    "koffi": "^2.6.6"
   }
 }

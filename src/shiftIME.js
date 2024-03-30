@@ -2,7 +2,7 @@
 
 const vscode = require('vscode')
 const hscopes = require('./hscopes')
-const ffi = require('ffi-napi');
+const koffi = require('koffi');
 
 let cnLParam  = vscode.workspace.getConfiguration().get("Settings.ChineseModeCode") ?? 1025
 let enLParam  = vscode.workspace.getConfiguration().get("Settings.EnglishModeCode") ?? 0
@@ -33,23 +33,21 @@ function activate(context) {
 // win32api ////////////////////////////////////////////////
 
 // Import user32
-const user32 = new ffi.Library("user32", {
-    "SendMessageW":       ['int32', ['long', 'int32', 'int32', 'int32']],
-    "GetForegroundWindow":["int32",[]]
-  });
-  
-const imm = new ffi.Library("imm32" ,{
-    "ImmGetDefaultIMEWnd": ["int32" , ["int32"]]
-});
+const user32 = koffi.load('user32.dll')
+const imm32 = koffi.load('imm32.dll')
+
+const GetForegroundWindow = user32.stdcall("GetForegroundWindow", "int32", [])
+const SendMessageW = user32.stdcall("SendMessageW", 'int32', ['long', 'int32', 'int32', 'int32'])
+const ImmGetDefaultIMEWnd = imm32.stdcall("ImmGetDefaultIMEWnd", "int32", ["int32"])
 
 /**
  * @param {number} wParam wParam for WM_IME_CONTROL
  * @param {number} lParam lParam for WM_IME_CONTROL
  */
 function imcController(wParam, lParam){
-    var hwnd = user32.GetForegroundWindow()
-    var defaultIMEWnd = imm.ImmGetDefaultIMEWnd(hwnd)
-    return user32.SendMessageW(defaultIMEWnd,0x283,wParam,lParam);
+    var hwnd = GetForegroundWindow()
+    var defaultIMEWnd = ImmGetDefaultIMEWnd(hwnd)
+    return SendMessageW(defaultIMEWnd,0x283,wParam,lParam);
 }
 
 // main /////////////////////////////////////////////////////

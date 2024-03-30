@@ -16,3 +16,11 @@ Upgrade from `Ultra IME for VSCode` Extension which is now deprecated.
 
 - My Input Mode can not be changed.
   - Execute `shiftIm.debug` command. This command will help you set Params. If it still doesn't work, please raise an issue [HERE](https://github.com/yfzhao20/Shift-IM-for-VSCode/issues).
+- Not work on Remote/SSH/WSL/Docker
+  - Add following configuration to settings and reinstall the extension:
+  ```json
+  "remote.extensionKind": {
+        "yfzhao.hscopes-booster": ["ui"],
+        "yfzhao.shift-im-for-math": ["ui"],
+    }
+  ```
