@@ -19,5 +19,9 @@
 - Add `shiftIm.debug`(*Shift IM: Debug*) command which will help you set Params.
 
 ## [0.0.7]
+
 - Fix `command 'shiftIM.debug' not found` Error.
 
+## [0.0.8]
+
+- Enable in Typst file.

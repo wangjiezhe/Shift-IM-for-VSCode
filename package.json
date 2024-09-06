@@ -2,11 +2,12 @@
   "name": "shift-im-for-math",
   "displayName": "Shift IM for Math",
   "description": "An extension for automatically shift IM(Input Method) mode. Make it easier to input LaTeX in VSCode.",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "keywords": [
     "input method",
     "latex",
-    "markdown"
+    "markdown",
+    "typst"
   ],
   "os": [
     "win32"
@@ -61,7 +62,8 @@
   "icon": "images/icon.ico",
   "activationEvents": [
     "onLanguage:markdown",
-    "onLanguage:latex"
+    "onLanguage:latex",
+    "onLanguage:typst"
   ],
   "main": "./src/extension.js",
   "extensionDependencies": [
